@@ -79,4 +79,10 @@ return [
         'occasion' => 'Philosophy',
         'file' => 'assets/sounds/Understandingisitsownreward.mp3',
     ],
+    [
+        'title' => 'Brokk Trolot: What Are You Doing?',
+        'character' => 'Fibonacci',
+        'occasion' => 'Philosophy',
+        'file' => 'assets/sounds/BrokkTrolotWhatAreYouDoing.mp3',
+    ],
 ];
