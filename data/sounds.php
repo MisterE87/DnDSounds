@@ -82,7 +82,25 @@ return [
     [
         'title' => 'Brokk Trolot: What Are You Doing?',
         'character' => 'Fibonacci',
-        'occasion' => 'Philosophy',
+        'occasion' => 'Annoyed',
         'file' => 'assets/sounds/BrokkTrolotWhatAreYouDoing.mp3',
+    ],
+    [
+        'title' => 'Jealous?',
+        'character' => 'Fibonacci',
+        'occasion' => 'Annoyed',
+        'file' => 'assets/sounds/Jealous.mp3',
+    ],
+    [
+        'title' => 'Poison',
+        'character' => 'Fibonacci',
+        'occasion' => 'Annoyed',
+        'file' => 'assets/sounds/Poison.mp3',
+    ],
+    [
+        'title' => 'Dont throw me!!!',
+        'character' => 'Fibonacci',
+        'occasion' => 'Annoyed',
+        'file' => 'assets/sounds/Noooodontthrowme.mp3',
     ],
 ];
