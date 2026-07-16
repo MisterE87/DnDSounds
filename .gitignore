@@ -1,0 +1,4 @@
+env.php
+.ftp-deploy-sync-state.json
+.DS_Store
+*.log
