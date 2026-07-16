@@ -8,16 +8,22 @@ require_once __DIR__ . '/data/sounds.php';
 $hash = getenv('APP_PASSWORD_HASH') ?: (($_ENV['APP_PASSWORD_HASH'] ?? '') ?: '$2y$10$ZswoE6REG1AJIpnIHHa9BeSb0Ud633gGpM1foUK1OL4RRAmyi4r6G');
 $auth = new DnDSounds\Auth($hash);
 
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: /index.php');
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['password'])) {
     if ($auth->attempt((string) $_POST['password'])) {
-        session_start();
         $_SESSION['dn_d_sounds_logged_in'] = true;
         header('Location: /index.php');
         exit;
     }
 }
 
-session_start();
 if (!($_SESSION['dn_d_sounds_logged_in'] ?? false)) {
     echo <<<'HTML'
 <!doctype html>
