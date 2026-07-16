@@ -43,6 +43,7 @@ if (!($_SESSION['dn_d_sounds_logged_in'] ?? false)) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple DnD audio fragment player for quick soundboard playback during games.">
     <title>DnDSounds</title>
     <style>
         body { font-family: Arial, sans-serif; background: #111827; color: #f9fafb; padding: 2rem; }
@@ -74,6 +75,7 @@ if (!($_SESSION['dn_d_sounds_seen_landing'] ?? false)) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple DnD audio fragment player for quick soundboard playback during games.">
     <title>Welcome to DnDSounds</title>
     <style>
         body { font-family: Arial, sans-serif; background: #111827; color: #f9fafb; padding: 2rem; }
@@ -127,6 +129,7 @@ $situations = array_values(array_unique(array_map(static function (array $item):
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A simple DnD audio fragment player for quick soundboard playback during games.">
     <title>DnDSounds</title>
     <style>
         body { font-family: Arial, sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 2rem; }
