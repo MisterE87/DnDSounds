@@ -88,19 +88,19 @@ return [
     [
         'title' => 'Jealous?',
         'character' => 'Fibonacci',
-        'occasion' => 'Annoyed',
+        'occasion' => 'Mean',
         'file' => 'assets/sounds/Jealous.mp3',
     ],
     [
         'title' => 'Poison',
         'character' => 'Fibonacci',
-        'occasion' => 'Annoyed',
+        'occasion' => 'Mean',
         'file' => 'assets/sounds/Poison.mp3',
     ],
     [
         'title' => 'Dont throw me!!!',
         'character' => 'Fibonacci',
-        'occasion' => 'Annoyed',
+        'occasion' => 'Scared',
         'file' => 'assets/sounds/Noooodontthrowme.mp3',
     ],
 ];
