@@ -212,7 +212,7 @@ if (!($_SESSION['dn_d_sounds_seen_landing'] ?? false)) {
             margin: 0;
         }
         .card {
-            max-width: 560px;
+            max-width: 640px;
             margin: 3rem auto;
             background: rgba(12, 8, 5, 0.96);
             padding: 2rem 2.25rem;
@@ -232,14 +232,20 @@ if (!($_SESSION['dn_d_sounds_seen_landing'] ?? false)) {
             margin: 0 0 1.5rem;
             color: #e5d6ac;
         }
-        img {
-            display: block;
-            width: 100%;
-            max-height: 320px;
-            object-fit: cover;
+        .video-shell {
+            overflow: hidden;
             border-radius: 18px;
             border: 1px solid rgba(247,239,208,0.15);
-            margin-top: 1rem;
+            box-shadow: 0 14px 30px rgba(0,0,0,.28);
+            background: rgba(0,0,0,.3);
+            margin: 1rem 0 1.25rem;
+        }
+        video {
+            display: block;
+            width: 100%;
+            height: auto;
+            background: #000;
+            min-height: 240px;
         }
         .button-group {
             display: grid;
@@ -261,31 +267,55 @@ if (!($_SESSION['dn_d_sounds_seen_landing'] ?? false)) {
             transform: translateY(-1px);
             box-shadow: 0 16px 30px rgba(217, 119, 6, .3);
         }
-        img {
-            display: block;
-            width: 100%;
-            max-height: 340px;
-            object-fit: contain;
-            border-radius: 18px;
-            border: 1px solid rgba(247,239,208,0.15);
-            margin: 1rem auto 0;
-            box-shadow: 0 14px 30px rgba(0,0,0,.28);
-            background: rgba(255,255,255,0.04);
+        .button-group button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+            transform: none;
+            box-shadow: none;
+        }
+        .helper-text {
+            margin-top: .75rem;
+            margin-bottom: 0;
+            font-size: .95rem;
+            color: #cbbf90;
         }
     </style>
 </head>
 <body>
     <div class="card">
         <h1>Welcome to the sacred dungeon of DnD sounds.</h1>
-        <p>Step into the chamber, then open the vault to explore the soundboard.</p>
-        <img src="assets/Fibonacci.png" alt="Fibonacci">
+        <p>Watch the prologue, then open the vault to explore the soundboard.</p>
+        <div class="video-shell">
+            <video id="landing-video" autoplay playsinline preload="metadata" controls>
+                <source src="assets/sounds/welcome.mp4" type="video/mp4">
+                Your browser does not support video playback.
+            </video>
+        </div>
+        <p class="helper-text" id="landing-helper">The prologue will play automatically. The vault opens once it finishes.</p>
         <div class="button-group">
-            <form method="post">
+            <form method="post" id="continue-form">
                 <input type="hidden" name="continue" value="1">
-                <button type="submit">Open the vault</button>
+                <button type="submit" id="continue-button" disabled>Watch the prologue to continue</button>
             </form>
         </div>
     </div>
+    <script>
+        const landingVideo = document.getElementById('landing-video');
+        const continueButton = document.getElementById('continue-button');
+        const helperText = document.getElementById('landing-helper');
+
+        landingVideo.addEventListener('loadedmetadata', function () {
+            landingVideo.play().catch(function () {
+                helperText.textContent = 'The browser blocked autoplay, so press play in the video to start the prologue.';
+            });
+        });
+
+        landingVideo.addEventListener('ended', function () {
+            continueButton.disabled = false;
+            continueButton.textContent = 'Open the vault';
+            helperText.textContent = 'The prologue is complete. You may continue.';
+        });
+    </script>
 </body>
 </html>
 HTML;

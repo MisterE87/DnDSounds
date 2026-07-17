@@ -23,4 +23,10 @@ if (!isset($first['file']) || !is_string($first['file']) || $first['file'] === '
     exit(1);
 }
 
+$indexSource = file_get_contents(__DIR__ . '/../index.php');
+if (!str_contains($indexSource, '<video') || !str_contains($indexSource, 'addEventListener(\'ended\'') || !str_contains($indexSource, "continueButton.disabled = false;")) {
+    fwrite(STDERR, "Landing page should render a video gate before the soundboard can be opened\n");
+    exit(1);
+}
+
 fwrite(STDOUT, "Verification passed\n");
