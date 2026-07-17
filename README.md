@@ -12,6 +12,8 @@ A simple protected soundboard for hosting on InfinityFree with a shared password
 ## Adding sound fragments
 
 1. Place each audio file in `assets/sounds/`.
+   - Keep `knowledge.mp3` in the root of `assets/sounds/`.
+   - For all other sounds, create a subfolder under `assets/sounds/` named after the `occasion` value and place the file there.
 2. Add a new entry in `data/sounds.php` with:
    - `title`
    - `character`
