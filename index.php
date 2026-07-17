@@ -539,12 +539,12 @@ $situations = array_values(array_unique(array_map(static function (array $item):
                                             <div class="sound-meta"><?= htmlspecialchars((string) $sound['description'], ENT_QUOTES, 'UTF-8') ?></div>
                                         </div>
                                     </div>
+                                    <audio class="audio-player" preload="none">
+                                        <source type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
                                 </td>
                                 <td><?= htmlspecialchars((string) $sound['character'], ENT_QUOTES, 'UTF-8') ?></td>
-                                <audio class="audio-player" preload="none">
-                                    <source type="audio/mpeg">
-                                    Your browser does not support the audio element.
-                                </audio>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -554,7 +554,7 @@ $situations = array_values(array_unique(array_map(static function (array $item):
     <?php endforeach; ?>
     <script>
         document.querySelectorAll('.audio-button').forEach(function (button) {
-            var player = button.closest('td').querySelector('.audio-player');
+            var player = button.closest('tr').querySelector('.audio-player');
             var source = player.querySelector('source');
             source.src = button.dataset.audioSrc;
             player.load();
@@ -564,7 +564,7 @@ $situations = array_values(array_unique(array_map(static function (array $item):
                     document.querySelectorAll('.audio-player').forEach(function (otherPlayer) {
                         if (otherPlayer !== player) {
                             otherPlayer.pause();
-                            var otherButton = otherPlayer.closest('td').querySelector('.audio-button');
+                            var otherButton = otherPlayer.closest('tr').querySelector('.audio-button');
                             if (otherButton) {
                                 otherButton.textContent = '▶';
                                 otherButton.classList.remove('playing');
