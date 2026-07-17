@@ -451,26 +451,50 @@ $situations = array_values(array_unique(array_map(static function (array $item):
             line-height: 1.5;
         }
         .audio-button {
+            --progress: 0deg;
+            position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 2.6rem;
-            height: 2.6rem;
-            min-width: 2.6rem;
+            width: 3rem;
+            height: 3rem;
+            min-width: 3rem;
+            border: none;
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.15);
-            background: linear-gradient(135deg, #8b5cf6 0%, #5b21b6 100%);
-            color: white;
+            background: transparent;
+            color: #f7efd0;
             cursor: pointer;
-            font-size: .95rem;
-            box-shadow: 0 8px 16px rgba(0,0,0,.15);
-            flex-shrink: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            box-shadow: 0 10px 22px rgba(0,0,0,.2);
+            transition: transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s cubic-bezier(.4,0,.2,1);
+            overflow: hidden;
         }
-        .audio-button.playing {
-            background: linear-gradient(135deg, #f59e0b 0%, #dc2626 100%);
+        .audio-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(from -90deg, rgba(245,158,11,0.95) 0deg, rgba(245,158,11,0.95) var(--progress), rgba(255,255,255,0.08) var(--progress), rgba(255,255,255,0.08) 360deg);
+        }
+        .audio-button::after {
+            content: '';
+            position: absolute;
+            inset: 5px;
+            border-radius: 50%;
+            background: rgba(15, 9, 20, 0.95);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .audio-button span {
+            position: relative;
+            z-index: 1;
         }
         .audio-button:hover {
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 14px 30px rgba(0,0,0,.25);
+        }
+        .audio-button.playing {
+            transform: scale(1.05);
         }
         .audio-player { display: none; }
         a.logout { color: #fbbf24; text-decoration: none; }
@@ -533,7 +557,7 @@ $situations = array_values(array_unique(array_map(static function (array $item):
                             <tr>
                                 <td>
                                     <div class="sound-cell">
-                                        <button type="button" class="audio-button" data-audio-src="<?= htmlspecialchars((string) $sound['file'], ENT_QUOTES, 'UTF-8') ?>">▶</button>
+                                        <button type="button" class="audio-button" data-audio-src="<?= htmlspecialchars((string) $sound['file'], ENT_QUOTES, 'UTF-8') ?>"><span>▶</span></button>
                                         <div class="sound-info">
                                             <div class="sound-title"><?= htmlspecialchars((string) $sound['title'], ENT_QUOTES, 'UTF-8') ?></div>
                                             <div class="sound-meta"><?= htmlspecialchars((string) $sound['description'], ENT_QUOTES, 'UTF-8') ?></div>
@@ -559,6 +583,20 @@ $situations = array_values(array_unique(array_map(static function (array $item):
             source.src = button.dataset.audioSrc;
             player.load();
 
+            player.addEventListener('timeupdate', function () {
+                if (player.duration > 0) {
+                    var progress = Math.min(360, (player.currentTime / player.duration) * 360);
+                    button.style.setProperty('--progress', progress + 'deg');
+                }
+            });
+
+            function setButtonIcon(buttonElement, icon) {
+                var label = buttonElement.querySelector('span');
+                if (label) {
+                    label.textContent = icon;
+                }
+            }
+
             button.addEventListener('click', function () {
                 if (player.paused) {
                     document.querySelectorAll('.audio-player').forEach(function (otherPlayer) {
@@ -566,24 +604,26 @@ $situations = array_values(array_unique(array_map(static function (array $item):
                             otherPlayer.pause();
                             var otherButton = otherPlayer.closest('tr').querySelector('.audio-button');
                             if (otherButton) {
-                                otherButton.textContent = '▶';
+                                setButtonIcon(otherButton, '▶');
                                 otherButton.classList.remove('playing');
+                                otherButton.style.setProperty('--progress', '0deg');
                             }
                         }
                     });
                     player.play();
-                    button.textContent = '■';
+                    setButtonIcon(button, '■');
                     button.classList.add('playing');
                 } else {
                     player.pause();
-                    button.textContent = '▶';
+                    setButtonIcon(button, '▶');
                     button.classList.remove('playing');
                 }
             });
 
             player.addEventListener('ended', function () {
-                button.textContent = '▶';
+                setButtonIcon(button, '▶');
                 button.classList.remove('playing');
+                button.style.setProperty('--progress', '0deg');
             });
         });
     </script>

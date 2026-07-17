@@ -166,4 +166,9 @@ return [
         'character' => 'Fibonacci',    'occasion' => 'Puzzle',
         'file' => 'assets/sounds/Puzzle/ThereMustBeAClue.mp3',
     ],
+    [
+        'title' => 'Inside someones story',
+        'character' => 'Fibonacci',    'occasion' => 'Puzzle',
+        'file' => 'assets/sounds/Puzzle/insidestory.mp3',
+    ],
 ];
