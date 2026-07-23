@@ -296,4 +296,10 @@ return [
         'character' => 'Fibonacci',    'occasion' => 'Puzzle',
         'file' => 'assets/sounds/Puzzle/insidestory.mp3',
     ],
+        [
+        'title' => 'Dragonborn, to the back!',
+        'character' => 'Wrenn',    'occasion' => 'Thorn',
+        'file' => 'assets/sounds/Thorn/DragonbornToTheBack.mp3',
+    ],
+
 ];
